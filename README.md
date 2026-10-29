@@ -45,22 +45,6 @@ This project implements an end-to-end comparative instance-segmentation system t
 
 Unlike standard Intersection over Union (IoU), which evaluates matched pairs independently, the **Aggregated Jaccard Index (AJI)** computes the global intersection and union across ground-truth and predicted nuclei. It penalizes under-segmentation (multiple cells merged into one) and over-segmentation (one cell split into multiple predictions).
 
-**Formula:**
-$$
-\text{AJI} =
-\frac{
-\sum_{i=1}^{N_{gt}} |G_i \cap P_{j^*(i)}|
-}{
-\sum_{i=1}^{N_{gt}} |G_i \cup P_{j^*(i)}|
-+ \sum_{k \in U} |P_k|
-}
-$$
-
-Where:
-- $G_i$ is the $i$-th ground-truth nucleus.
-- $P_{j^*(i)}$ is the predicted nucleus with the maximum overlap with $G_i$.
-- $U$ is the set of unassigned false-positive predictions.
-- $N_{gt}$ is the number of ground-truth nuclei.
 
 ### Panoptic Quality (PQ)
 
