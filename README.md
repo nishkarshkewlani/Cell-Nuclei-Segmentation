@@ -42,16 +42,57 @@ This project implements an end-to-end comparative instance-segmentation system t
 ## 📊 3. Quantitative Evaluation Metrics
 
 ### Aggregated Jaccard Index (AJI)
-Unlike standard IoU which evaluates matched pairs independently, AJI computes global intersection and union over all ground truth and predicted nuclei, heavily penalizing under-segmentation (two cells merged) and over-segmentation (one cell split):
-$$\text{AJI} = \frac{\sum_{i=1}^{N_{gt}} |G_i \cap P_{j^*(i)}|}{\sum_{i=1}^{N_{gt}} |G_i \cup P_{j^*(i)}| + \sum_{k \in U} |P_k|}$$
-where $P_{j^*(i)}$ is the predicted nucleus with maximum overlap to ground truth $G_i$, and $U$ is the set of false positive unassigned predictions.
+
+Unlike standard Intersection over Union (IoU), which evaluates matched pairs independently, the **Aggregated Jaccard Index (AJI)** computes the global intersection and union across ground-truth and predicted nuclei. It penalizes under-segmentation (multiple cells merged into one) and over-segmentation (one cell split into multiple predictions).
+
+**Formula:**
+
+$$
+\text{AJI} =
+\frac{\sum_{i=1}^{N_{gt}} |G_i \cap P_{j^*(i)}|}
+{\sum_{i=1}^{N_{gt}} |G_i \cup P_{j^*(i)}| + \sum_{k \in U} |P_k|}
+$$
+
+Where:
+
+- $G_i$ represents the \(i\)-th ground-truth nucleus.
+- $P_{j^*(i)}$ is the predicted nucleus with the maximum overlap with ground-truth nucleus $G_i$.
+- $U$ represents the set of unassigned false-positive predictions.
+- $N_{gt}$ is the total number of ground-truth nuclei.
+- $\cap$ and $\cup$ denote intersection and union, respectively.
 
 ### Panoptic Quality (PQ)
-Combines recognition accuracy and boundary alignment:
-$$\text{PQ} = \underbrace{\frac{\sum_{(p, g) \in TP} \text{IoU}(p, g)}{|TP|}}_{\text{Segmentation Quality (SQ)}} \times \underbrace{\frac{|TP|}{|TP| + \frac{1}{2}|FP| + \frac{1}{2}|FN|}}_{\text{Recognition Quality (RQ)}}$$
 
----
+**Panoptic Quality (PQ)** evaluates instance segmentation by combining recognition accuracy and segmentation quality. It measures both the correctness of detected nuclei and the accuracy of their predicted boundaries.
 
+**Formula:**
+
+$$
+\text{PQ} = \text{SQ} \times \text{RQ}
+$$
+
+Where Segmentation Quality (SQ) and Recognition Quality (RQ) are defined as:
+
+$$
+\text{SQ} =
+\frac{\sum_{(p,g)\in TP} \text{IoU}(p,g)}
+{|TP|}
+$$
+
+$$
+\text{RQ} =
+\frac{|TP|}
+{|TP| + \frac{1}{2}|FP| + \frac{1}{2}|FN|}
+$$
+
+Here:
+
+- **SQ (Segmentation Quality):** Measures the average IoU of correctly matched predicted and ground-truth nuclei.
+- **RQ (Recognition Quality):** Measures the accuracy of nucleus detection and matching.
+- **TP (True Positives):** Correctly matched predicted nuclei.
+- **FP (False Positives):** Predicted nuclei that do not match any ground-truth nucleus.
+- **FN (False Negatives):** Ground-truth nuclei that are not correctly detected.
+- **IoU (Intersection over Union):** Measures the overlap between a predicted nucleus and its corresponding ground-truth nucleus.
 ## 🚀 4. Quickstart Guide
 
 ### 1. Requirements
