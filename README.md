@@ -46,7 +46,6 @@ This project implements an end-to-end comparative instance-segmentation system t
 Unlike standard Intersection over Union (IoU), which evaluates matched pairs independently, the **Aggregated Jaccard Index (AJI)** computes the global intersection and union across ground-truth and predicted nuclei. It penalizes under-segmentation (multiple cells merged into one) and over-segmentation (one cell split into multiple predictions).
 
 **Formula:**
-
 $$
 \text{AJI} =
 \frac{
