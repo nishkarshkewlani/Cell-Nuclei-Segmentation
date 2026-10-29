@@ -49,17 +49,19 @@ Unlike standard Intersection over Union (IoU), which evaluates matched pairs ind
 
 $$
 \text{AJI} =
-\frac{\sum_{i=1}^{N_{gt}} |G_i \cap P_{j^*(i)}|}
-{\sum_{i=1}^{N_{gt}} |G_i \cup P_{j^*(i)}| + \sum_{k \in U} |P_k|}
+\frac{
+\sum_{i=1}^{N_{gt}} |G_i \cap P_{j^*(i)}|
+}{
+\sum_{i=1}^{N_{gt}} |G_i \cup P_{j^*(i)}|
++ \sum_{k \in U} |P_k|
+}
 $$
 
 Where:
-
-- $G_i$ represents the \(i\)-th ground-truth nucleus.
-- $P_{j^*(i)}$ is the predicted nucleus with the maximum overlap with ground-truth nucleus $G_i$.
-- $U$ represents the set of unassigned false-positive predictions.
-- $N_{gt}$ is the total number of ground-truth nuclei.
-- $\cap$ and $\cup$ denote intersection and union, respectively.
+- $G_i$ is the $i$-th ground-truth nucleus.
+- $P_{j^*(i)}$ is the predicted nucleus with the maximum overlap with $G_i$.
+- $U$ is the set of unassigned false-positive predictions.
+- $N_{gt}$ is the number of ground-truth nuclei.
 
 ### Panoptic Quality (PQ)
 
